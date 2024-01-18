@@ -25,7 +25,7 @@ jobs:
     - name: Install dependencies
       run: pip3 install -r requirements.txt
     - name: Build keyboards
-      run: python3 bin/build_all.py
+      run: python3 bin/build_gmmk.py
 
     - uses: actions/upload-artifact@v2
       with:

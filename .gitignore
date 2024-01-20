@@ -66,6 +66,8 @@ CMakeLists.txt
 .vscode/tasks.json
 .vscode/temp.sql
 tags
+Session.vim
+/venv
 
 # Ignore image files
 *.gif

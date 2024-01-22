@@ -50,7 +50,7 @@
 #define FORCE_NKRO                          /* default NRKO enabled */
 #define DEBOUNCE 1                          /* Debounce time in ms */
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true /* rgb off when power off / suspend */
-#define VIA_OPENRGB_HYBRID
+// #define VIA_OPENRGB_HYBRID
 // #define USE_FRAMEBUFFER
 // #define KEYMAP_ISO 1
 /* default ripple effect */

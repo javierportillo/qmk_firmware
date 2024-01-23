@@ -53,6 +53,11 @@
 // #define VIA_OPENRGB_HYBRID
 // #define USE_FRAMEBUFFER
 // #define KEYMAP_ISO 1
+/* Configuration for better Home Row Mods */
+#define TAPPING_TERM 200 // time threshold to consider a key press to be a tap or a hold
+#define QUICK_TAP_TERM 0 // disable double tapping to repeat the key, now the second tap will trigger the hold function
+#define PERMISSIVE_HOLD
+
 /* default ripple effect */
 #ifdef RGB_MATRIX_CUSTOM_USER
 #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CUSTOM_RIPPLE

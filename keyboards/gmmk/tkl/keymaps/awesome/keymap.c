@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "features/achordion.h"
 
 enum {
     ESC_CAPS,
@@ -63,8 +64,10 @@ void matrix_init_user(void) {
 }
 
 void matrix_scan_user(void) {
+    achordion_task();
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!process_achordion(keycode, record)) { return false; }
     return true;
 }

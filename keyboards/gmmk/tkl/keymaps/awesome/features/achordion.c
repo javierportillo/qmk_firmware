@@ -1,4 +1,4 @@
-// Copyright 2022-2023 Google LLC
+// Copyright 2022 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -21,12 +21,6 @@
  */
 
 #include "achordion.h"
-
-#if !defined(IS_QK_MOD_TAP)
-// Attempt to detect out-of-date QMK installation, which would fail with
-// implicit-function-declaration errors in the code below.
-#error "achordion: QMK version is too old to build. Please update QMK."
-#else
 
 // Copy of the `record` and `keycode` args for the current active tap-hold key.
 static keyrecord_t tap_hold_record;
@@ -88,19 +82,16 @@ bool process_achordion(uint16_t keycode, keyrecord_t* record) {
   }
 
   // Determine whether the current event is for a mod-tap or layer-tap key.
-  const bool is_mt = IS_QK_MOD_TAP(keycode);
-  const bool is_tap_hold = is_mt || IS_QK_LAYER_TAP(keycode);
-  // Check that this is a normal key event, don't act on combos.
-#ifdef IS_KEYEVENT
-  const bool is_key_event = IS_KEYEVENT(record->event);
-#else
-  const bool is_key_event =
+  const bool is_mt = QK_MOD_TAP <= keycode && keycode <= QK_MOD_TAP_MAX;
+  const bool is_tap_hold =
+      is_mt || (QK_LAYER_TAP <= keycode && keycode <= QK_LAYER_TAP_MAX);
+  // Check key position to avoid acting on combos.
+  const bool is_physical_pos =
       (record->event.key.row < 254 && record->event.key.col < 254);
-#endif
 
   if (achordion_state == STATE_RELEASED) {
     if (is_tap_hold && record->tap.count == 0 && record->event.pressed &&
-        is_key_event) {
+        is_physical_pos) {
       // A tap-hold key is pressed and considered by QMK as "held".
       const uint16_t timeout = achordion_timeout(keycode);
       if (timeout > 0) {
@@ -111,7 +102,7 @@ bool process_achordion(uint16_t keycode, keyrecord_t* record) {
         hold_timer = record->event.time + timeout;
 
         if (is_mt) {  // Apply mods immediately if they are "eager."
-          uint8_t mod = mod_config(QK_MOD_TAP_GET_MODS(tap_hold_keycode));
+          uint8_t mod = (tap_hold_keycode >> 8) & 0x1f;
           if (achordion_eager_mod(mod)) {
             eager_mods = ((mod & 0x10) == 0) ? mod : (mod << 4);
             register_mods(eager_mods);
@@ -167,7 +158,7 @@ bool process_achordion(uint16_t keycode, keyrecord_t* record) {
     // events back into the handling pipeline so that QMK features and other
     // user code can see them. This is done by calling `process_record()`, which
     // in turn calls most handlers including `process_record_user()`.
-    if (!is_streak && (!is_key_event || (is_tap_hold && record->tap.count == 0) ||
+    if (!is_streak && (!is_physical_pos || (is_tap_hold && record->tap.count == 0) ||
         achordion_chord(tap_hold_keycode, &tap_hold_record, keycode, record))) {
       dprintln("Achordion: Plumbing hold press.");
       settle_as_hold();
@@ -246,9 +237,18 @@ __attribute__((weak)) uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
   return 1000;
 }
 
-// By default, Shift and Ctrl mods are eager, and Alt and GUI are not.
+// By default, hold Shift and Ctrl mods eagerly.
 __attribute__((weak)) bool achordion_eager_mod(uint8_t mod) {
-  return (mod & (MOD_LALT | MOD_LGUI)) == 0;
+  switch (mod) {
+    case MOD_LSFT:
+    case MOD_RSFT:
+    case MOD_LCTL:
+    case MOD_RCTL:
+      return true;
+
+    default:
+      return false;
+  }
 }
 
 #ifdef ACHORDION_STREAK
@@ -257,4 +257,3 @@ __attribute__((weak)) uint16_t achordion_streak_timeout(uint16_t tap_hold_keycod
 }
 #endif
 
-#endif  // version check

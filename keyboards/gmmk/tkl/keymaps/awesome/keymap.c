@@ -10,7 +10,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 
 // Left-hand home row mods
-#define HM_A LGUI_T(KC_A)
+// #define HM_A LGUI_T(KC_A)
+#define HM_A KC_A
 #define HM_S LALT_T(KC_S)
 #define HM_D LSFT_T(KC_D)
 #define HM_F LCTL_T(KC_F)
@@ -19,7 +20,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define HM_J RCTL_T(KC_J)
 #define HM_K RSFT_T(KC_K)
 #define HM_L LALT_T(KC_L)
-#define HM_SCLN RGUI_T(KC_SCLN)
+// #define HM_SCLN RGUI_T(KC_SCLN)
+#define HM_SCLN KC_SCLN
 
 // will later make an exception for same hand rule
 #define CTRL_ESC LCTL_T(KC_ESC) // Define caps lock as MT(CTRL,ESC)

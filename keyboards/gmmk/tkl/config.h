@@ -63,6 +63,7 @@
 #define COMBO_MUST_HOLD_MODS // if a combo triggers a modifier, only trigger when the combo is held
 #define COMBO_HOLD_TERM 150  // how long at least one of the combo keys must be held to trigger
 #define EXTRA_SHORT_COMBOS // store combo state in just one byte; limits to combos of 6 keys max
+#define COMBO_SHOULD_TRIGGER // enable a user callback to stop or let combo trigger
 
 // RGB Matrix Effects
 // #define ENABLE_RGB_MATRIX_ALPHAS_MODS

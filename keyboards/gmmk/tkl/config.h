@@ -110,7 +110,12 @@
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 1200
 #define NO_DEBUG 1
 // #define NO_PRINT 1
-#define OPENRGB_DIRECT_MODE_UNBUFFERED  /* use unbuffered direct mode in OpenRGB protocol */
+// #define OPENRGB_DIRECT_MODE_UNBUFFERED  /* use unbuffered direct mode in OpenRGB protocol */
+
+#undef LOCKING_SUPPORT_ENABLE
+#undef LOCKING_RESYNC_ENABLE
+#define NO_ACTION_ONESHOT
+#define NO_MUSIC_MODE
 
 #include "config_led.h"
 

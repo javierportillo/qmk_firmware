@@ -19,22 +19,10 @@ enum combos {
     R_1_2H_3H_SHIFT_WIN,
     L_1_2H_3U_ALT_WIN,
     R_1_2H_3U_ALT_WIN,
-    // L_Z_CTRL_SHIFT_ALT, // cant be combo with just one key right
-    // R_Z_CTRL_SHIFT_ALT,
-    // L_1_2U_3H_CTRL_SHIFT_WIN, // will limit to 2 mods combos
-    // R_1_2U_3H_CTRL_SHIFT_WIN,
-    // L_1_2U_3U_CTRL_ALT_WIN,
-    // R_1_2U_3U_CTRL_ALT_WIN,
-    // L_1U_2U_3U_SHIFT_ALT_WIN,
-    // R_1U_2U_3U_SHIFT_ALT_WIN,
-    // L_Z_3H_CTRL_SHIFT_ALT_WIN,
-    // R_Z_3H_CTRL_SHIFT_ALT_WIN,
     COMBO_LENGTH // nifty trick to avoid manually specifying how many combos you have
 };
 
 uint16_t COMBO_LEN = COMBO_LENGTH; // nifty trick continued
-
-#define MEH_SPC MEH_T(KC_SPC) // Space or MEH on hold
 
 // define keys that make up combos
 const uint16_t PROGMEM l_1_2h_ctrl[] = {KC_F, KC_D, COMBO_END};
@@ -57,16 +45,6 @@ const uint16_t PROGMEM l_1_2h_3h_shift_win[] = {KC_F, KC_D, KC_S, COMBO_END};
 const uint16_t PROGMEM r_1_2h_3h_shift_win[] = {KC_J, KC_K, KC_L, COMBO_END};
 const uint16_t PROGMEM l_1_2h_3u_alt_win[] = {KC_F, KC_D, KC_W, COMBO_END};
 const uint16_t PROGMEM r_1_2h_3u_alt_win[] = {KC_J, KC_K, KC_O, COMBO_END};
-// const uint16_t PROGMEM l_z_ctrl_shift_alt[] = {KC_SPC, COMBO_END};
-// const uint16_t PROGMEM r_z_ctrl_shift_alt[] = {KC_SPC, COMBO_END};
-// const uint16_t PROGMEM l_1_2u_3h_ctrl_shift_win[] = {KC_F, KC_E, KC_S, COMBO_END};
-// const uint16_t PROGMEM r_1_2u_3h_ctrl_shift_win[] = {KC_J, KC_I, KC_L, COMBO_END};
-// const uint16_t PROGMEM l_1_2u_3u_ctrl_alt_win[] = {KC_F, KC_E, KC_W, COMBO_END};
-// const uint16_t PROGMEM r_1_2u_3u_ctrl_alt_win[] = {KC_J, KC_I, KC_O, COMBO_END};
-// const uint16_t PROGMEM l_1u_2u_3u_shift_alt_win[] = {KC_R, KC_E, KC_W, COMBO_END};
-// const uint16_t PROGMEM r_1u_2u_3u_shift_alt_win[] = {KC_U, KC_I, KC_O, COMBO_END};
-// const uint16_t PROGMEM l_z_3h_ctrl_shift_alt_win[] = {MEH_SPC, KC_W, COMBO_END};
-// const uint16_t PROGMEM r_z_3h_ctrl_shift_alt_win[] = {MEH_SPC, KC_O, COMBO_END};
 
 // map combo names to their keys and the key they trigger
 combo_t key_combos[] = {
@@ -90,15 +68,5 @@ combo_t key_combos[] = {
     [R_1_2H_3H_SHIFT_WIN] = COMBO(r_1_2h_3h_shift_win, RSFT(KC_RGUI)),
     [L_1_2H_3U_ALT_WIN] = COMBO(l_1_2h_3u_alt_win, LALT(KC_LGUI)),
     [R_1_2H_3U_ALT_WIN] = COMBO(r_1_2h_3u_alt_win, LALT(KC_LGUI)),
-    // [L_Z_CTRL_SHIFT_ALT] = COMBO(l_z_ctrl_shift_alt, KC_),
-    // [R_Z_CTRL_SHIFT_ALT] = COMBO(r_z_ctrl_shift_alt, KC_),
-    // [L_1_2U_3H_CTRL_SHIFT_WIN] = COMBO(l_1_2u_3h_ctrl_shift_win, LCTL(LSFT(KC_LGUI))),
-    // [R_1_2U_3H_CTRL_SHIFT_WIN] = COMBO(r_1_2u_3h_ctrl_shift_win, RCTL(RSFT(KC_RGUI))),
-    // [L_1_2U_3U_CTRL_ALT_WIN] = COMBO(l_1_2u_3u_ctrl_alt_win, LCA(KC_LGUI)),
-    // [R_1_2U_3U_CTRL_ALT_WIN] = COMBO(r_1_2u_3u_ctrl_alt_win, LCA(KC_LGUI)),
-    // [L_1U_2U_3U_SHIFT_ALT_WIN] = COMBO(l_1u_2u_3u_shift_alt_win, LSA(KC_LGUI)),
-    // [R_1U_2U_3U_SHIFT_ALT_WIN] = COMBO(r_1u_2u_3u_shift_alt_win, LSA(KC_LGUI)),
-    // [L_Z_3H_CTRL_SHIFT_ALT_WIN] = COMBO(l_z_3h_ctrl_shift_alt_win, MEH(KC_LGUI)),
-    // [R_Z_3H_CTRL_SHIFT_ALT_WIN] = COMBO(r_z_3h_ctrl_shift_alt_win, MEH(KC_LGUI)),
 };
 

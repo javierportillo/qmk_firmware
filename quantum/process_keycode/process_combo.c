@@ -44,6 +44,12 @@ __attribute__((weak)) uint16_t get_combo_term(uint16_t index, combo_t *combo) { 
 __attribute__((weak)) bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode) { return false; }
 #endif
 
+#ifdef COMBO_SHOULD_TRIGGER
+__attribute__((weak)) bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
+    return true;
+}
+#endif
+
 #ifndef COMBO_NO_TIMER
 static uint16_t timer = 0;
 #endif
@@ -360,7 +366,11 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
         return false;
     }
 
-    bool key_is_part_of_combo = !COMBO_DISABLED(combo) && is_combo_enabled();
+    bool key_is_part_of_combo = (!COMBO_DISABLED(combo) && is_combo_enabled()
+#ifdef COMBO_SHOULD_TRIGGER
+                                 && combo_should_trigger(combo_index, combo, keycode, record)
+#endif
+                                 );
 
     if (record->event.pressed && key_is_part_of_combo) {
         uint16_t time = _get_combo_term(combo_index, combo);
